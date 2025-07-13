@@ -5,14 +5,14 @@
   outline: none;
   border: none;
   text-decoration: none;
-  font-family: 'Seymour One', sans-serif;
+  font-family: 'Array', sans-serif;
 }
 
 /* tittle */
 .tittle {
   color: white;
   text-align: center;
-  font-size: 40px;
+  font-size: 60px;
   padding: 1.5rem 0;
 }
 .kata1 {
@@ -32,10 +32,10 @@
 }
 
 .display {
+  font-family: "Supreme", sans-serif;
   color: white;
-  font-size: 25px;
+  font-size: 30px;
   text-align: center;
-  margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
@@ -64,18 +64,36 @@
   color: black;
 }
 
-.playerO {
+.block.playerO {
   color: red;
 }
 
-.playerX {
+.block.playerX {
+  color: blue;
+}
+
+.display .playerO {
+  color: red;
+}
+
+.display .playerX {
+  color: blue;
+}
+
+.display-announce .playerO {
+  color: red;
+}
+
+.display-announce .playerX {
   color: blue;
 }
 
 .display-announce {
+  font-family: "Supreme", sans-serif;
   color: white;
   text-align: center;
   margin: 1rem 0;
+  font-size: 30px;
 }
 
 .control {

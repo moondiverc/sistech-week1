@@ -1,9 +1,11 @@
 window.addEventListener('DOMContentLoaded', () => {
+    // mengambil elemen-elemen yang dibutuhkan
     const blocks = Array.from(document.querySelectorAll('.block'));
     const playerDisplay = document.querySelector('.display');
     const resetButton = document.querySelector('#reset');
     const announcer = document.querySelector('.display-announce');
 
+    // variabel
     let board = ['', '', '', '', '', '', '', '', '',];
     let currentPlayer = 'X';
     let isActive = true;
@@ -12,6 +14,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const playerOwin = 'playerOwin';
     const tie = 'tie';
 
+    // array berisi kombinasi blok untuk menang
     const winArrays = [
         [0, 1, 2],
         [3, 4, 5],
@@ -23,6 +26,7 @@ window.addEventListener('DOMContentLoaded', () => {
         [2, 4, 6]
     ];
 
+    // fungsi announcement
     const announcement = (type) => {
         switch(type) {
             case playerOwin:
@@ -37,6 +41,7 @@ window.addEventListener('DOMContentLoaded', () => {
         announcer.classList.remove('hide');
     };
 
+    // fungsi untuk menangani result valid
     function handleResultValid() {
         let isWin = false;
         for (let i = 0; i < winArrays.length; i++) {
@@ -54,17 +59,22 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        // jika ada yang menang
         if (isWin) {
             announcement(currentPlayer === 'X' ? playerXwin : playerOwin);
+            playerDisplay.classList.add('hide');
             isActive = false;
             return;
         }
 
+        // jika tie
         if (!board.includes('')) {
             announcement(tie);
+            playerDisplay.classList.add('hide');
         }
     }
 
+    // fungsi untuk mengecek blok valid(kosong)
     const isValid = (block) => {
         if (block.innerText === 'X' || block.innerText === 'O') {
             return false;
@@ -72,10 +82,12 @@ window.addEventListener('DOMContentLoaded', () => {
         return true;
     }
 
+    // fungsi untuk mengupdate board
     const updateBoard = (index) => {
         board[index] = currentPlayer;
     }
 
+    // fungsi untuk mengganti player
     const changePlayer = () => {
         playerDisplay.classList.remove(`player${currentPlayer}`);
         currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
@@ -83,6 +95,7 @@ window.addEventListener('DOMContentLoaded', () => {
         playerDisplay.classList.add(`player${currentPlayer}`);
     };
 
+    // fungsi untuk aksi yang dilakukan user
     const userAction = (block, index) => {
         if (isValid(block) && isActive) {
             block.innerText = currentPlayer;
@@ -93,6 +106,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // fungsi untuk mereset board
     const resetBoard = () => {
         board = ['', '', '', '', '', '', '', '', '',];
         isActive = true;
@@ -106,12 +120,15 @@ window.addEventListener('DOMContentLoaded', () => {
             block.innerText = '';
             block.classList.remove('playerX');
             block.classList.remove('playerO');
+            playerDisplay.classList.remove('hide');
         })
     }
 
+    // event listener untuk memulai permainan
     blocks.forEach( (block, index) => {
         block.addEventListener('click', () => userAction(block, index));
     });
 
+    // event listener untuk reset button
     resetButton.addEventListener('click', resetBoard);
 });
